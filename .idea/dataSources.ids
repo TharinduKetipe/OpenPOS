@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="MySQL - OpenPOS@localhost" uuid="e7354da2-0872-4346-80ab-b189f2d0ff51">
+    <database-info product="MySQL" version="5.6.12-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="openpos"/>
+    <table name="grn" schema="" catalog="openpos" type="TABLE">
+      <column name="GrnNumber" sqlType="VARCHAR" length="15" precision="0" nullable="false" jdbcType="12"/>
+      <column name="GrnAmount" sqlType="DECIMAL" length="15" precision="0" nullable="false" jdbcType="3"/>
+      <column name="GrnDate" sqlType="DATETIME" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="Supplier_SupId" sqlType="VARCHAR" length="15" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="GrnNumber"/>
+      <foreign-key name="fk_Grn_Supplier1" columns="Supplier_SupId" ref-table="supplier" ref-schema="" ref-catalog="openpos" ref-columns="SupId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_GrnDetails_Grn1" table="grndetails" schema="" catalog="openpos" columns="Grn_GrnNumber"/>
+      <index name="fk_Grn_Supplier1_idx" unique="false" columns="Supplier_SupId"/>
+    </table>
+    <table name="grndetails" schema="" catalog="openpos" type="TABLE">
+      <column name="DetailsId" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Quantity" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8"/>
+      <column name="Price" sqlType="DECIMAL" length="15" precision="0" nullable="false" jdbcType="3"/>
+      <column name="Grn_GrnNumber" sqlType="VARCHAR" length="15" precision="0" nullable="false" jdbcType="12"/>
+      <column name="Stock_ProductId" sqlType="VARCHAR" length="15" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="DetailsId"/>
+      <foreign-key name="fk_GrnDetails_Grn1" columns="Grn_GrnNumber" ref-table="grn" ref-schema="" ref-catalog="openpos" ref-columns="GrnNumber" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_GrnDetails_Stock1" columns="Stock_ProductId" ref-table="stock" ref-schema="" ref-catalog="openpos" ref-columns="ProductId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_GrnDetails_Grn1_idx" unique="false" columns="Grn_GrnNumber"/>
+      <index name="fk_GrnDetails_Stock1_idx" unique="false" columns="Stock_ProductId"/>
+    </table>
+    <table name="invoice" schema="" catalog="openpos" type="TABLE">
+      <column name="InvoiceNumber" sqlType="VARCHAR" length="15" precision="0" nullable="false" jdbcType="12"/>
+      <column name="InvoiceAmount" sqlType="DECIMAL" length="15" precision="0" nullable="false" jdbcType="3"/>
+      <column name="InvoiceDate" sqlType="DATETIME" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="User_IdUser" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="InvoiceNumber"/>
+      <foreign-key name="fk_Invoice_User1" columns="User_IdUser" ref-table="user" ref-schema="" ref-catalog="openpos" ref-columns="IdUser" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_InvoiceDetails_Invoice" table="invoicedetails" schema="" catalog="openpos" columns="Invoice_InvoiceNumber"/>
+      <index name="fk_Invoice_User1_idx" unique="false" columns="User_IdUser"/>
+    </table>
+    <table name="invoicedetails" schema="" catalog="openpos" type="TABLE">
+      <column name="DetailsId" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Quantity" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8"/>
+      <column name="Price" sqlType="DECIMAL" length="15" precision="0" nullable="true" jdbcType="3"/>
+      <column name="Invoice_InvoiceNumber" sqlType="VARCHAR" length="15" precision="0" nullable="false" jdbcType="12"/>
+      <column name="Stock_ProductId" sqlType="VARCHAR" length="15" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="DetailsId"/>
+      <foreign-key name="fk_InvoiceDetails_Invoice" columns="Invoice_InvoiceNumber" ref-table="invoice" ref-schema="" ref-catalog="openpos" ref-columns="InvoiceNumber" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_InvoiceDetails_Stock1" columns="Stock_ProductId" ref-table="stock" ref-schema="" ref-catalog="openpos" ref-columns="ProductId" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_InvoiceDetails_Invoice_idx" unique="false" columns="Invoice_InvoiceNumber"/>
+      <index name="fk_InvoiceDetails_Stock1_idx" unique="false" columns="Stock_ProductId"/>
+    </table>
+    <table name="stock" schema="" catalog="openpos" type="TABLE">
+      <column name="ProductId" sqlType="VARCHAR" length="15" precision="0" nullable="false" jdbcType="12"/>
+      <column name="ProductName" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
+      <column name="ProductQuantity" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8"/>
+      <column name="SellingPrice" sqlType="DECIMAL" length="30" precision="0" nullable="true" jdbcType="3"/>
+      <column name="PurchasingPrice" sqlType="DECIMAL" length="30" precision="0" nullable="true" jdbcType="3"/>
+      <column name="ProductCatogery" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="ProductId"/>
+      <exported-key name="fk_GrnDetails_Stock1" table="grndetails" schema="" catalog="openpos" columns="Stock_ProductId"/>
+      <exported-key name="fk_InvoiceDetails_Stock1" table="invoicedetails" schema="" catalog="openpos" columns="Stock_ProductId"/>
+    </table>
+    <table name="supplier" schema="" catalog="openpos" type="TABLE">
+      <column name="SupId" sqlType="VARCHAR" length="15" precision="0" nullable="false" jdbcType="12"/>
+      <column name="SupName" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
+      <column name="SupAddress" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
+      <column name="SupContactNum" sqlType="VARCHAR" length="15" precision="0" nullable="false" jdbcType="12"/>
+      <column name="SupEmail" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="SupId"/>
+      <exported-key name="fk_Grn_Supplier1" table="grn" schema="" catalog="openpos" columns="Supplier_SupId"/>
+    </table>
+    <table name="user" schema="" catalog="openpos" type="TABLE">
+      <column name="IdUser" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="NameUser" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
+      <column name="PositionUser" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
+      <column name="UsrnameUser" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
+      <column name="PasswrdUser" sqlType="VARCHAR" length="45" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="IdUser"/>
+      <exported-key name="fk_Invoice_User1" table="invoice" schema="" catalog="openpos" columns="User_IdUser"/>
+    </table>
+  </data-source>
+</component>

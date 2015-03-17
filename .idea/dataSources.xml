@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1150711772">
+    <data-source source="LOCAL" name="MySQL - OpenPOS@localhost" uuid="e7354da2-0872-4346-80ab-b189f2d0ff51">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/OpenPOS</jdbc-url>
+      <user-name>root</user-name>
+      <schema-pattern>openpos.*</schema-pattern>
+      <default-schemas>openpos.*</default-schemas>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
